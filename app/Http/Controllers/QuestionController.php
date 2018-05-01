@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Session;
 
 class QuestionController extends Controller
 {
@@ -50,6 +51,7 @@ class QuestionController extends Controller
         $question->description = $request->description;
         $question->user()->associate(Auth::id());
         if($question->save()) {
+            Session::flash('flash_message', 'Question added');
             return redirect()->route('questions.show', $question->id);
         }
         return redirect()->route('questions.create');
@@ -84,7 +86,7 @@ class QuestionController extends Controller
         if(Auth::id() != $question->user->id){
             abort(403);
         }
-        return view('questions.create')->with(['question' => $question]);
+        return view('questions.edit')->with(['question' => $question]);
     }
 
     /**
@@ -105,8 +107,10 @@ class QuestionController extends Controller
         }
         $question->title = $request->title;
         $question->description = $request->description;
-        $question->saveOrFail();
-        return view('questions.show', $question->id);
+        if($question->save()) {
+            Session::flash('flash_message', 'Question updated');
+        }
+        return \Redirect::route('questions.show', $question->id);
     }
 
     /**
@@ -117,6 +121,13 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::findOrFail($id);
+        if(Auth::id() != $question->user->id){
+            abort(403);
+        }
+        if($question->delete()) {
+            Session::flash('flash_message', 'Question deleted');
+        }
+        return \Redirect::route('questions.index');
     }
 }

@@ -1,6 +1,12 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
+
+            <!-- Left Side Of Navbar -->
+            <ul class="nav navbar-nav">
+                &nbsp;<li><a href="{{ route('home') }}">Questions</a></li>
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
 
                 @if (Auth::guest())

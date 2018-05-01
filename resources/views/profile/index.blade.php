@@ -1,5 +1,5 @@
 @extends('layouts.template')
 
 @section('content')
-    @include('_includes/recent-questions')
+    <p>PROFILE INDEX PAGE</p>
 @endsection

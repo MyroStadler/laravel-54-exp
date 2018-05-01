@@ -15,10 +15,18 @@
 
     @include('_includes/nav/topnav')
 
+    @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            {{ Session::get('flash_message') }}
+        </div>
+    @endif
+
     @yield('content')
 
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <p>&nbsp;</p>
+
 </body>
 </html>

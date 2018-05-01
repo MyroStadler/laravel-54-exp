@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.template')
 
 @section('content')
     <div class="container">
@@ -8,8 +8,5 @@
             <p><a href="{{ route('questions.create') }}" class="btn btn-primary btn-lg" role="button">Ask now</a></p>
         </div>
     </div>
-    <div class="container">
-        <h2>Recent questions</h2>
-        <p>TODO</p>
-    </div>
+    @include('_includes/recent-questions')
 @endsection
